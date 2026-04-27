@@ -2,8 +2,8 @@ clc; clear; close all;
 rng(1);
 
 %% SETTINGS
-trainFile = 'Training sheet.xlsx';
-testFile  = 'Testing sheet.xlsx';
+trainFile = 'data/Training sheet.xlsx';
+testFile  = 'data/Testing sheet.xlsx';
 colIdx    = 3;   % Column C (actual load)
 
 m1 = 48;
