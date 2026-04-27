@@ -1,5 +1,8 @@
 # Weather-Based Power Load Forecasting
 
+**Credit to - https://github.com/KomalGoel18**
+
+
 A deep learning project that forecasts hourly power load using a multi-region LSTM (Long Short-Term Memory) neural network. The model leverages energy consumption data from multiple PJM (Pennsylvania-New Jersey-Maryland) regions to predict power demand for a target region.
 
 ## Overview
