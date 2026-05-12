@@ -1,65 +1,103 @@
-Weather Based Load Forecasting credit to - https://github.com/KomalGoel18
+#  Short-Term Load Forecasting using Exponentially Weighted Methods
 
-# ⚡ Short-Term Load Forecasting using Time-Series Models
+This repository presents MATLAB implementations and simulations of short-term electrical load forecasting methods based on the IEEE research paper:
 
-This repository presents an implementation of multiple short-term load forecasting techniques, inspired by IEEE research on electricity demand prediction. The work focuses on modeling intraday and intraweek patterns using statistical and machine learning approaches.
+> **James W. Taylor, “Short-Term Load Forecasting With Exponentially Weighted Methods,” IEEE Transactions on Power Systems, Vol. 27, No. 1, Feb. 2012.**
 
----
-
-## 📌 Overview
-
-Accurate short-term load forecasting is essential for efficient power system operation. This project implements and compares multiple forecasting approaches, including:
-
-- Singular Value Decomposition (SVD)-based models  
-- Exponential smoothing techniques  
-- Neural network-based models (LSTM)  
-- Statistical baselines  
-
-The models are evaluated using log-transformed load data and standard error metrics such as MAPE.
+The project focuses on forecasting half-hourly electrical demand using univariate time-series techniques without relying on weather inputs. Multiple statistical and decomposition-based forecasting approaches are implemented and evaluated using MATLAB simulations.
 
 ---
 
-## 📊 Features
+#  Objective
 
-- 📈 Actual vs Forecast visualization (log scale)  
-- 📉 MAPE vs Forecast Horizon (up to 48 half-hours)  
-- 📦 Export of results (CSV, Excel, PNG figures)  
-- 🔍 Rolling forecast evaluation  
-- ⚙️ Parameter tuning (grid search)  
-- 📊 IEEE-style plots for publication  
+The objective of this work is to study and compare different short-term load forecasting models capable of capturing:
 
----
+- Intraday seasonal patterns  
+- Intraweek seasonal variations  
+- Temporal dependencies in load demand  
 
+The models are evaluated using rolling multi-step forecasting up to 48 half-hour intervals (24 hours ahead).
 
 ---
 
-## ⚙️ Data Pre-processing
+#  Forecasting Models Implemented
 
-The following preprocessing steps are applied:
+The following forecasting methods were studied and implemented:
 
-- Removal of missing and invalid values  
-- Interpolation to ensure continuity  
+###  Intraday Cycle (IC) Exponential Smoothing
+- Models recurring daily load patterns
+- Different seasonal structures for weekdays and weekends
+
+###  Holt-Winters-Taylor (HWT) Method
+- Double seasonal exponential smoothing
+- Captures intraday and intraweek cycles
+
+###  Singular Value Decomposition (SVD)-Based Forecasting
+- Uses low-rank decomposition of weekly load matrices
+- Extracts dominant temporal structures
+
+###  Dynamic Weighted Regression (DWR)
+- Uses adaptive weighted regression
+- Includes trigonometric and spline-based formulations
+
+###  Artificial Neural Network (ANN)
+- Feedforward neural network for nonlinear forecasting
+
+###  AutoRegressive Moving Average (ARMA)
+- Statistical baseline model for time-series prediction
+
+---
+
+#  Data Pre-processing
+
+The following preprocessing steps were performed prior to model implementation:
+
+- Removal of missing and invalid observations  
+- Interpolation to preserve continuity of the time series  
 - Conversion to uniform half-hour intervals  
 - Logarithmic transformation for variance stabilization  
-- Chronological splitting into training, validation, and testing sets  
-- Preservation of seasonal (intraday and intraweek) structures  
+- Chronological division into training and testing datasets  
+- Preservation of intraday and intraweek seasonal structures  
 
 ---
 
-## 🚀 Methodology
+#  MATLAB Simulations
 
-### 1. Time-Series Modeling
-- Models capture both **short-term dependencies** and **seasonal patterns**  
-- Feature extraction is performed where necessary (e.g., decomposition-based methods)
+The repository includes MATLAB implementations for forecasting and performance evaluation.
 
-### 2. Forecasting
-- Recursive multi-step forecasting up to **48 half-hours (24 hours)**  
-- Rolling-origin evaluation is used for realistic performance estimation  
+## Implemented Features
 
-### 3. Error Metric
+- Weekly matrix formation for SVD decomposition  
+- Recursive exponential smoothing updates  
+- Multi-step rolling forecasts  
+- Actual vs Forecast visualization  
+- Zoomed forecasting comparison  
+- MAPE vs Forecast Horizon analysis  
+- Export of plots and result tables  
 
-Mean Absolute Percentage Error (MAPE):
+---
+
+#  Simulation Outputs
+
+The MATLAB simulations generate the following outputs:
+
+###  Actual vs Forecast Plot
+Compares the predicted load profile with the actual load demand.
+
+###  Zoomed Forecast Plot
+Provides a detailed comparison over a smaller interval.
+
+###  MAPE vs Forecast Horizon
+Evaluates forecasting accuracy for horizons up to 48 half-hours ahead.
+
+###  Error Tables
+Exports horizon-wise MAPE values in CSV and Excel formats.
+
+---
+
+#  Performance Metric
+
+Forecast accuracy is evaluated using Mean Absolute Percentage Error (MAPE):
 
 ```math
-MAPE = \frac{100}{N} \sum_{t=1}^{N} \left| \frac{y_t - \hat{y}_t}{y_t} \right|
-
+MAPE = \frac{100}{N}\sum_{t=1}^{N}\left|\frac{y_t-\hat{y}_t}{y_t}\right|
